@@ -1,0 +1,59 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class main {
+    static Scanner sc = new Scanner(System.in);
+    static ArrayList<planeta> equipo = new ArrayList();
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.out.println("Creando equipos...");
+	    crearEquipo();
+	    mostrarEquipos();
+	}
+	
+	
+	    public static void crearEquipo(){
+
+	    	//Declaración de variables para leer los datos de los coches
+	        String nombre = null;
+	        int vidas=200;
+	        int misiles=50;
+
+	        //Variable auxiliar que contendrá la referencia a cada coche nuevo.
+	        int i;
+	        int N;
+	        //se pide por teclado el número de coches a leer
+	        do {
+	            System.out.print("Número de equipos? ");
+	            N = sc.nextInt();
+	        } while (N < 0);
+	        sc.nextLine(); //limpiar el intro
+
+	        for (i = 1; i <= N; i++) {
+
+	            //leer datos de cada coche
+	            System.out.println("Equipo " + i);
+	            System.out.print("Nombre: ");
+	            nombre = sc.nextLine();          
+
+	            planeta aux = new planeta(nombre,  N); //Se crea un objeto Coche y se asigna su referencia a aux                          
+
+	            
+	                      
+	            //se añade el objeto al final del array
+	            equipo.add(aux);
+	        }
+	    }
+
+	    public static void mostrarEquipos() {
+	            for(int i = 0; i< equipo.size(); i++)
+	                System.out.println(equipo.get(i).getNombre());  //se invoca el método toString de la clase Coche                  
+	        }
+	    
+	}
+
+
+
+
+

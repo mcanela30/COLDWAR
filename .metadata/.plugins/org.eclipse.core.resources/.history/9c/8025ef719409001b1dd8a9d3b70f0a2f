@@ -1,0 +1,24 @@
+import java.util.Scanner;
+public class crearEquipos {
+	
+	static planeta equipo1=new planeta();
+	static planeta equipo2=new planeta();
+	static planeta equipo3=new planeta();
+	static planeta equipo4=new planeta();
+	static planeta equipo5=new planeta();
+
+	static void creacion() {
+		int y=1;
+		for (int i = 0; i < 5; i++) {
+		String nombre=null;
+        Scanner teclado=new Scanner(System.in);
+		System.out.println("Nombre del jugador "+y);
+		nombre=teclado.nextLine();
+		equipo1.setNombre(nombre);
+		equipo1.setNumero_equipos(y);
+		y++;	
+		}
+	}
+
+	
+}

@@ -1,0 +1,33 @@
+
+public class main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		ardilla pepe =new ardilla();
+		caracol manolo =new caracol();
+		
+		pepe.peso=15;
+		pepe.velocidad=15;
+		pepe.setespecie("Mamifero");
+		pepe.setgenero("Masculino");
+		pepe.setcolorcola("Gris");
+		pepe.setcolorpelo("Marron");
+		pepe.setnumdientes(20);
+
+		
+		manolo.peso=1;
+		manolo.velocidad=1;
+		manolo.setespecie("Herbiboro");
+		manolo.setgenero("Hermafordita");
+		manolo.setcolor("amarillo");
+		manolo.setcolobabosa("verde");
+		manolo.setnumdientes(0);		
+		
+		pepe.mostrardatos();
+		manolo.mostrardatos();
+		
+		
+	}
+
+}

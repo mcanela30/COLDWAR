@@ -1,0 +1,62 @@
+//Marti Canela, Gabriel Gómez
+public class planeta {
+	
+	//Creamos las variables
+	private static int vidas=0;
+	private static String nombre=null;
+	private int misiles_ronda=0;
+	private static int numero_equipos=0;
+	
+	
+	//Creamos Getters y Setters
+	public int getVidas() {
+		return vidas;
+	}
+	public void setVidas(int vidas) {
+		this.vidas = vidas;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public int getMisiles_ronda() {
+		return misiles_ronda;
+	}
+	public void setMisiles_ronda(int misiles_ronda) {
+		this.misiles_ronda = misiles_ronda;
+	}
+	public int getNumero_equipos() {
+		return numero_equipos;
+	}
+	public void setNumero_equipos(int numero_equipos) {
+		this.numero_equipos = numero_equipos;
+	}
+	
+	public planeta() {
+		
+		vidas=0;
+		nombre=null;
+		misiles_ronda=0;
+		numero_equipos=0;
+		
+	}
+	
+	public String toString() {
+        StringBuilder sb = new StringBuilder();                                                                   
+        sb.append("\nNombre: ");
+        sb.append(nombre);
+        sb.append("\nVidas: ");
+        sb.append(vidas);   
+        return sb.toString();
+    }
+
+
+
+
+		
+	}
+
+
+
