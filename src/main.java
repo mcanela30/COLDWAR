@@ -4,11 +4,10 @@ import java.util.Scanner;
 public class main {
 	static Scanner sc = new Scanner(System.in);
 	static ArrayList<planeta> equipo = new ArrayList<planeta>();
-	static int ronda=1,N=0;
+	static int ronda=1,N=0, equiposVivos=0;
 
 	public static void main(final String[] args) {
 		// TODO Auto-generated method stub
-
 		menu();
 	}
 
@@ -24,17 +23,18 @@ public class main {
 			System.out.println("3. INFORMACIÓN");
 			System.out.println("4. APARTADO ABIERTO");
 			System.out.println("0. SALIR");
-
 			System.out.print("Escribe una de las opciones: ");
 			opcion = sc.nextInt();
-
+						
 			switch(opcion){
 			case 1:
 				System.out.println("\n------------------------------");
 				System.out.println("Creando equipos...");
 				crearEquipo();
-				ronda();
-				ataque();
+				while (equiposVivos!=0) {
+					ronda();
+					ataque();
+				}
 				System.out.println("------------------------------\n");
 				break;
 			case 2:
@@ -62,9 +62,7 @@ public class main {
 			default:
 				System.out.println("\nSolo números entre 0 y 4");
 			}
-
 		}
-
 	}
 
 	public static void crearEquipo(){
@@ -86,18 +84,16 @@ public class main {
 
 			//se añade el objeto al final del array
 			equipo.add(new planeta(sc.nextLine(),i));
+			equiposVivos++;
 		}
 	}
 
 	public static void ronda() {
-		//do {
 			System.out.println("-----------");
 			System.out.println("| RONDA "+ronda+" |");
 			System.out.println("-----------");
 			mostrarEquipos();
 			ronda++;
-		//} while ();
-
 	}
 
 	public static void mostrarEquipos() {
@@ -105,27 +101,30 @@ public class main {
 		for(int i = 0; i< equipo.size(); i++)
 			System.out.println(equipo.get(i));  //se invoca el método toString de la clase Coche                  
 		System.out.println("------------------------------");
-
 	}
 
 	public static void ataque(){
+		int ataque=0,misilAtaque=0, misilDefensa=0;
 		for (int i = 0; i < N; i++) {
 			System.out.println("Turno de ataque del equipo "+(i+1)+": "+equipo.get(i).getNombre());
 			System.out.println("------------------------------");
-			for (int j = 0; j < N; j++) {
-				
-				if(i!=j) {
-					System.out.println("Equipo "+(j+1) +": " +equipo.get(j).getNombre());
-				}
-			
-			}
-			System.out.println("0. Misiles restantes a defensa.");
+			while(equipo.get(i).getMisiles_ronda()!=0) {
 			System.out.println("------------------------------");
 			System.out.println("Misiles disponibles: "+ equipo.get(i).getMisiles_ronda());
 			System.out.println("¿A quién quieres atacar?");
-			sc.nextLine();
+			for (int j = 0; j < N; j++) {
+				if(i!=j) {
+					System.out.println((j+1) +". " +equipo.get(j).getNombre());
+				}
+			}
+			System.out.println("0. Misiles restantes a defensa.");
+			ataque=sc.nextInt();
 			System.out.println("Introduce el número de misiles con el que quieres atacar");
-			sc.nextLine();
+			misilAtaque=sc.nextInt();
+			planeta.atacarEquipo(misilAtaque);
+			planeta.quitarVida(misilAtaque,ataque);
+
+			}
 		}
 
 	}

@@ -2,9 +2,9 @@
 public class planeta {
 	
 	//Creamos las variables
-	private int vidas=0;
+	private static int vidas=0;
 	private String nombre=null;
-	private int misiles_ronda=0;
+	private static int misiles_ronda=0;
 	private int numero_equipos=0;
 	
 	
@@ -39,7 +39,15 @@ public class planeta {
 		this.vidas = 200;
 		this.misiles_ronda = 50;
 		this.numero_equipos = numero_equipos;
+	}
 	
+	public static void atacarEquipo(int ataque) {
+		misiles_ronda=misiles_ronda-ataque;
+	}
+	
+	public static void quitarVida(int ataque, int equipo) {
+		misiles_ronda=misiles_ronda-ataque;
+		vidas=vidas-ataque;
 	}
 	
 	public String toString() {
