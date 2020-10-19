@@ -3,10 +3,10 @@ import java.util.Scanner;
 
 public class main {
 	static Scanner sc = new Scanner(System.in);
-	static ArrayList<planeta> equipo = new ArrayList();
+	static ArrayList<planeta> equipo = new ArrayList<planeta>();
 	static int ronda=1,N=0;
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		// TODO Auto-generated method stub
 
 		menu();
@@ -17,7 +17,6 @@ public class main {
 
 		boolean salir = false;
 		int opcion; //Guardaremos la opcion del usuario
-
 		while(!salir){
 
 			System.out.println("1. JUGAR");
@@ -69,11 +68,6 @@ public class main {
 	}
 
 	public static void crearEquipo(){
-
-		//Declaración de variables para leer los datos de los coches
-		String nombre = null;
-		int vidas=200;
-		int misiles=50;
 
 		//Variable auxiliar que contendrá la referencia a cada coche nuevo.
 		int i;
