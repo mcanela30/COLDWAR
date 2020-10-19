@@ -1,2 +1,2 @@
 # ColdWar
- Proyecto programación
+ by: Gabriel Gómez, Marti Canela, Ayoub Belhaj
