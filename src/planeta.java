@@ -41,12 +41,11 @@ public class planeta {
 		this.numero_equipos = numero_equipos;
 	}
 	
-	public static void atacarEquipo(int ataque) {
-		misiles_ronda=misiles_ronda-ataque;
+	public static void atacarEquipo(int MisilAtaque) {
+		misiles_ronda=misiles_ronda-MisilAtaque;
 	}
 	
 	public static void quitarVida(int ataque, int equipo) {
-		misiles_ronda=misiles_ronda-ataque;
 		vidas=vidas-ataque;
 	}
 	
