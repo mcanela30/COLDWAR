@@ -2,18 +2,27 @@
 public class planeta {
 	
 	//Creamos las variables
-	private static int vidas=0;
+	private int vidas=200;
 	private String nombre=null;
-	private static int misiles_ronda=0;
+	private int misiles_ronda=0;
 	private int numero_equipos=0;
 	
+	public planeta(String nombre, int numero_equipos) {
+		this.nombre = nombre;
+		this.vidas = 200;
+		this.misiles_ronda = 50;
+		this.numero_equipos = numero_equipos;
+	}
 	
 	//Creamos Getters y Setters
 	public int getVidas() {
 		return vidas;
 	}
-	public void setVidas(int vidas) {
-		this.vidas = vidas;
+	public void setVidas(int vida, int vidas) {
+		this.vidas = vidas-vida;
+	}
+	public void setVidasDefensa(int vidas, int defensa) {
+		this.vidas = vidas+defensa;
 	}
 	public String getNombre() {
 		return nombre;
@@ -34,18 +43,7 @@ public class planeta {
 		this.numero_equipos = numero_equipos;
 	}
 	
-	public planeta(String nombre, int numero_equipos) {
-		this.nombre = nombre;
-		this.vidas = 200;
-		this.misiles_ronda = 50;
-		this.numero_equipos = numero_equipos;
-	}
-	
-	public static void atacarEquipo(int MisilAtaque) {
-		misiles_ronda=misiles_ronda-MisilAtaque;
-	}
-	
-	public static void quitarVida(int ataque, int equipo) {
+	public void quitarVida(int ataque, int equipo) {
 		vidas=vidas-ataque;
 	}
 	
