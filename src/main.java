@@ -4,13 +4,12 @@ import java.util.Scanner;
 public class main {
 	static Scanner sc = new Scanner(System.in);
 	static ArrayList<planeta> equipo = new ArrayList<planeta>();
-	static int ronda=1,N=0, equiposVivos=0;
+	static int ronda=1,N=0, equiposVivos=0,k=0;
 
 	public static void main(final String[] args) {
 		// TODO Auto-generated method stub
 		menu();
 	}
-
 
 	public static void menu() {
 
@@ -25,15 +24,17 @@ public class main {
 			System.out.println("0. SALIR");
 			System.out.print("Escribe una de las opciones: ");
 			opcion = sc.nextInt();
-						
+
 			switch(opcion){
 			case 1:
 				System.out.println("\n------------------------------");
 				System.out.println("Creando equipos...");
 				crearEquipo();
-				while (equiposVivos!=0) {
+				while (equiposVivos!=50) {
+					comprobarequiposvivos();
 					ronda();
 					ataque();
+					
 				}
 				System.out.println("------------------------------\n");
 				break;
@@ -67,7 +68,6 @@ public class main {
 
 	public static void crearEquipo(){
 
-		//Variable auxiliar que contendrá la referencia a cada coche nuevo.
 		int i;
 		//se pide por teclado el número de coches a leer
 		do {
@@ -89,11 +89,11 @@ public class main {
 	}
 
 	public static void ronda() {
-			System.out.println("-----------");
-			System.out.println("| RONDA "+ronda+" |");
-			System.out.println("-----------");
-			mostrarEquipos();
-			ronda++;
+		System.out.println("-----------");
+		System.out.println("| RONDA "+ronda+" |");
+		System.out.println("-----------");
+		mostrarEquipos();
+		ronda++;
 	}
 
 	public static void mostrarEquipos() {
@@ -104,31 +104,84 @@ public class main {
 	}
 
 	public static void ataque(){
-		int ataque=0,misilAtaque=0, misilDefensa=0;
-		for (int i = 0; i < N; i++) {
-			System.out.println("Turno de ataque del equipo "+(i+1)+": "+equipo.get(i).getNombre());
+		//se tiene que poner lo de las vidas para que no superes los 200.
+		int ataque=0,misilAtaque=0, misilDefensa=0,mRonda=0,vida=0;
+		boolean bucleRonda=true;
+
+		for (k = 0; k < N;k++) {
+
+			ataque=0; misilAtaque=0; misilDefensa=0; mRonda=0; bucleRonda=true;vida=0;
+
+			System.out.println("Turno de ataque del equipo "+(k+1)+": "+equipo.get(k).getNombre());
 			System.out.println("------------------------------");
-			while(equipo.get(i).getMisiles_ronda()!=0) {
-			System.out.println("------------------------------");
-			System.out.println("Misiles disponibles: "+ equipo.get(i).getMisiles_ronda());
-			System.out.println("¿A quién quieres atacar?");
-			for (int j = 0; j < N; j++) {
-				if(i!=j) {
-					System.out.println((j+1) +". " +equipo.get(j).getNombre());
+
+			equipo.get(k).setMisiles_ronda(50);
+
+
+
+			while(bucleRonda==true) {
+				System.out.println("Misiles disponibles: "+ equipo.get(k).getMisiles_ronda());
+				System.out.println("¿A quién quieres atacar?");
+
+				for (int j = 0; j < N; j++) {
+					if(k!=j) {
+						System.out.println((j+1) +". " +equipo.get(j).getNombre());
+					}
+				}
+
+				System.out.println("0. Misiles restantes a defensa.");
+				ataque=sc.nextInt();
+
+				while(ataque<0 || ataque>N || ataque==(k+1)) {
+					System.out.println("ERROR. Introduce de nuevo a quien desea atacar");
+					ataque=sc.nextInt();	
+				}
+				if(ataque!=0) {
+					System.out.println("Introduce el número de misiles con el que quieres atacar");
+					misilAtaque=sc.nextInt();
+					mRonda=equipo.get(k).getMisiles_ronda()-misilAtaque;
+					equipo.get(k).setMisiles_ronda(mRonda);
+					vida=equipo.get(ataque-1).getVidas();
+					equipo.get((ataque-1)).setVidas(misilAtaque,vida);
+				}
+
+				else {
+					misilDefensa=equipo.get(k).getMisiles_ronda()/2;
+					System.out.println(misilDefensa);
+					mRonda=equipo.get(k).getMisiles_ronda()-misilDefensa*2;
+					equipo.get(k).setMisiles_ronda(mRonda);
+					equipo.get((k)).setVidasDefensa(vida,misilDefensa);
+				}
+
+				if(mRonda==0) {
+					bucleRonda=false;
 				}
 			}
-			System.out.println("0. Misiles restantes a defensa.");
-			ataque=sc.nextInt();
-			System.out.println("Introduce el número de misiles con el que quieres atacar");
-			misilAtaque=sc.nextInt();
-			planeta.atacarEquipo(misilAtaque);
-			planeta.quitarVida(misilAtaque,ataque);
-
-			}
 		}
+		
+		for (k = 0; k < N;k++) {
+			vida=equipo.get(k).getVidas();
+
+
+		}
+
 
 	}
 
+	public static void comprobarequiposvivos() {
+		for (int i = 0; i < N; i++) {
+			int vidas=equipo.get(i).getVidas();
+			System.out.println(vidas);
+		if(vidas<=0) {
+	         equipo.remove(i);
+	         N--;
+			System.out.println("Borrar Equipo "+(i+1));
+		}
+			
+		}
+		System.out.println(equiposVivos);
+	}
+	
 	public static void reglas() {
 		System.out.println("REGLAS DEL JUEGO:");
 		System.out.println("1. Cada equipo tiene 50 misiles por ronda. ");
@@ -143,6 +196,7 @@ public class main {
 		System.out.println("Contacto: ");
 		System.out.println("Autores: ");
 	}
+
 }
 
 
