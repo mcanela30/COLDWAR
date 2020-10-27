@@ -19,7 +19,7 @@ public class main {
 
 			System.out.println("1. JUGAR");
 			System.out.println("2. REGLAS DEL JUEGO");
-			System.out.println("3. INFORMACIÓN");
+			System.out.println("3. INFORMACION");
 			System.out.println("4. APARTADO ABIERTO");
 			System.out.println("0. SALIR");
 			System.out.print("Escribe una de las opciones: ");
@@ -37,8 +37,6 @@ public class main {
 					
 				}
 				System.out.println("------------------------------\n");
-				System.out.println("------------------------------\n");
-
 				break;
 			case 2:
 				System.out.println("\n------------------------------");
@@ -57,13 +55,13 @@ public class main {
 				System.out.println(" ");
 				break;
 			case 0:
-				System.out.println("\n卐-卐-卐-卐-卐-卐-卐-卐-卐-卐-卐-卐-卐-卐");
+				System.out.println("\nÃ¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½");
 				System.out.println("A la puta calle.");
-				System.out.println("卐-卐-卐-卐-卐-卐-卐-卐-卐-卐-卐-卐-卐-卐");
+				System.out.println("Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½");
 				salir=true;
 				break;
 			default:
-				System.out.println("\nSolo números entre 0 y 4");
+				System.out.println("\nSolo numeros entre 0 y 4");
 			}
 		}
 	}
@@ -71,12 +69,18 @@ public class main {
 	public static void crearEquipo(){
 
 		int i;
-		//se pide por teclado el número de coches a leer
+		//se pide por teclado el nÃƒÂºmero de coches a leer
 		do {
-			System.out.print("Número de equipos? ");
+			System.out.print("Numeros de equipos? ");
 			N = sc.nextInt();
-		} while (N < 0);
+			if(N <3) {
+			System.out.println("Como minimo se tienen que crear 3 equipos.");
+			}
+		} while (N < 3);
+	
 		sc.nextLine(); //limpiar el intro
+
+		
 
 		for (i = 1; i <= N; i++) {
 
@@ -84,7 +88,7 @@ public class main {
 			System.out.println("Equipo " + i);
 			System.out.print("Nombre: ");
 
-			//se añade el objeto al final del array
+			//se aÃƒÂ±ade el objeto al final del array
 			equipo.add(new planeta(sc.nextLine(),i));
 			equiposVivos++;
 		}
@@ -101,7 +105,7 @@ public class main {
 	public static void mostrarEquipos() {
 		System.out.println("------------------------------");
 		for(int i = 0; i< equipo.size(); i++)
-			System.out.println(equipo.get(i));  //se invoca el método toString de la clase Coche                  
+			System.out.println(equipo.get(i));  //se invoca el mÃƒÂ©todo toString de la clase Coche                  
 		System.out.println("------------------------------");
 	}
 
@@ -123,7 +127,7 @@ public class main {
 
 			while(bucleRonda==true) {
 				System.out.println("Misiles disponibles: "+ equipo.get(k).getMisiles_ronda());
-				System.out.println("¿A quién quieres atacar?");
+				System.out.println("¿A quien quieres atacar?");
 
 				for (int j = 0; j < N; j++) {
 					if(k!=j) {
@@ -139,8 +143,13 @@ public class main {
 					ataque=sc.nextInt();	
 				}
 				if(ataque!=0) {
-					System.out.println("Introduce el número de misiles con el que quieres atacar");
+					System.out.println("Introduce el numero de misiles con el que quieres atacar");
 					misilAtaque=sc.nextInt();
+
+					while(misilAtaque>equipo.get(k).getMisiles_ronda()) {
+						System.out.println("ERROR. No tienes tantos misiles disponibles.\n Introduce el numero de misiles con el que quieres atacar");
+						misilAtaque=sc.nextInt();	
+					}
 					mRonda=equipo.get(k).getMisiles_ronda()-misilAtaque;
 					equipo.get(k).setMisiles_ronda(mRonda);
 					vida=equipo.get(ataque-1).getVidas();
@@ -148,16 +157,16 @@ public class main {
 				}
 
 				else {
+										
 					misilDefensa=equipo.get(k).getMisiles_ronda()/2;
-					System.out.println(misilDefensa);
 					mRonda=equipo.get(k).getMisiles_ronda()-misilDefensa*2;
 					equipo.get(k).setMisiles_ronda(mRonda);
-					equipo.get((k)).setVidasDefensa(vida,misilDefensa);
-				}
-
+					equipo.get((k)).setVidasDefensa(misilDefensa);				
+				}				
 				if(mRonda==0) {
 					bucleRonda=false;
 				}
+				
 			}
 		}
 		
@@ -173,23 +182,20 @@ public class main {
 	public static void comprobarequiposvivos() {
 		for (int i = 0; i < N; i++) {
 			int vidas=equipo.get(i).getVidas();
-			System.out.println(vidas);
 		if(vidas<=0) {
 	         equipo.remove(i);
 	         N--;
-			System.out.println("Borrar Equipo "+(i+1));
-		}
-			
+		}			
 		}
 		System.out.println(equiposVivos);
 	}
-	
+
 	public static void reglas() {
 		System.out.println("REGLAS DEL JUEGO:");
 		System.out.println("1. Cada equipo tiene 50 misiles por ronda. ");
 		System.out.println("2. Los misiles puden servirse de tanto de defensa como para atacar.");
 		System.out.println("3. Los misiles de defensa valen el doble, es decir 25 misiles\n de defensa equivalen a 50 misiles de ataque.");
-		System.out.println("4. ¡Mucha SUERTE!");
+		System.out.println("4. Ã‚Â¡Mucha SUERTE!");
 	}
 
 	public static void informacion() {

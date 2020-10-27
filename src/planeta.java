@@ -6,6 +6,7 @@ public class planeta {
 	private String nombre=null;
 	private int misiles_ronda=0;
 	private int numero_equipos=0;
+	private boolean ataquedefansa=true;
 	
 	public planeta(String nombre, int numero_equipos) {
 		this.nombre = nombre;
@@ -21,8 +22,10 @@ public class planeta {
 	public void setVidas(int vida, int vidas) {
 		this.vidas = vidas-vida;
 	}
-	public void setVidasDefensa(int vidas, int defensa) {
+	public void setVidasDefensa(int defensa) {
+		if (ataquedefansa==false) {
 		this.vidas = vidas+defensa;
+		}		
 	}
 	public String getNombre() {
 		return nombre;
@@ -45,6 +48,7 @@ public class planeta {
 	
 	public void quitarVida(int ataque, int equipo) {
 		vidas=vidas-ataque;
+		ataquedefansa=false;
 	}
 	
 	public String toString() {
