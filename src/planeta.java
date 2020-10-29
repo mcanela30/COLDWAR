@@ -2,15 +2,24 @@
 public class planeta {
 	
 	//Creamos las variables
-	private int vidas=200;
+	private int vidas=75;
 	private String nombre=null;
 	private int misiles_ronda=0;
 	private int numero_equipos=0;
 	private boolean ataquedefansa=true;
+	private int misilesDefensa=0;
 	
+	public int getMisilesDefensa() {
+		return misilesDefensa;
+	}
+
+	public void setMisilesDefensa(int misilesDefensa) {
+		this.misilesDefensa = misilesDefensa;
+	}
+
 	public planeta(String nombre, int numero_equipos) {
 		this.nombre = nombre;
-		this.vidas = 200;
+		this.vidas = 75;
 		this.misiles_ronda = 50;
 		this.numero_equipos = numero_equipos;
 	}
@@ -46,9 +55,8 @@ public class planeta {
 		this.numero_equipos = numero_equipos;
 	}
 	
-	public void quitarVida(int ataque, int equipo) {
-		vidas=vidas-ataque;
-		ataquedefansa=false;
+	public void quitarVida() {
+		vidas=vidas+misilesDefensa;
 	}
 	
 	public String toString() {
@@ -56,6 +64,7 @@ public class planeta {
         sb.append("Equipo "+numero_equipos+": "+nombre+" --> "+vidas); 
         return sb.toString();
     }
+	
 	
 
 
