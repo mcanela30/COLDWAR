@@ -2,7 +2,7 @@
 public class planeta {
 	
 	//Creamos las variables
-	private int vidas=75;
+	private int vidas=200;
 	private String nombre=null;
 	private int misiles_ronda=0;
 	private int numero_equipos=0;
@@ -19,12 +19,11 @@ public class planeta {
 
 	public planeta(String nombre, int numero_equipos) {
 		this.nombre = nombre;
-		this.vidas = 75;
+		this.vidas = 200;
 		this.misiles_ronda = 50;
 		this.numero_equipos = numero_equipos;
 	}
 	
-	//Creamos Getters y Setters
 	public int getVidas() {
 		return vidas;
 	}
