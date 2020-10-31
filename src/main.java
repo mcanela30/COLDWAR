@@ -29,17 +29,9 @@ public class main {
 
 			switch(opcion){
 			case 1:
-				System.out.println("\n------------------------------");
-				System.out.println("Creando equipos...");
-				crearEquipo();
-				while (N!=1) {
-
-					vidaAtaque = new int [N];
-					ronda();
-					ataque();
-					comprobarequiposvivos();
-				}
+				iniciarPartida();
 				if(N==1) {
+					finalizarPartida();
 					break;
 				}
 				System.out.println("------------------------------\n");
@@ -61,14 +53,28 @@ public class main {
 				System.out.println(" ");
 				break;
 			case 0:
-				System.out.println("\nÃ¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½");
+				System.out.println("\nÃ¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-");
 				System.out.println("A la puta calle.");
-				System.out.println("Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½");
+				System.out.println("Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥ï¿½ï¿½-Ã¥");
 				salir=true;
 				break;
 			default:
 				System.out.println("\nSolo numeros entre 0 y 4");
 			}
+		}
+	}
+	
+	
+	public static void iniciarPartida(){
+		System.out.println("\n------------------------------");
+		System.out.println("Creando equipos...");
+		crearEquipo();
+		while (N!=1) {
+
+			vidaAtaque = new int [N];
+			ronda();
+			ataque();
+			comprobarequiposvivos();
 		}
 	}
 
@@ -205,7 +211,16 @@ public class main {
 				N--;
 			}
 		}
-
+		mostrarGanador();
+	}
+	
+	public static void finalizarPartida(){
+		System.out.println("==================================");
+		System.out.println("La Partida ha finalizado");
+		System.out.println("==================================");
+	}
+	
+	public static void mostrarGanador() {
 		if(N==1) {
 			System.out.println("-----------------------------------");
 			System.out.println("-----------------------------------");
