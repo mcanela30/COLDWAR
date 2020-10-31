@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class partida {
 	static Scanner sc = new Scanner(System.in);
 	static ArrayList<planeta> equipo = new ArrayList<planeta>();
-	static int ronda=1,N=0, equiposVivos=0,k=0;
+	static int ronda=1,N=0, equiposVivos=0,k=0,G=0;
 	public static int [] vidaAtaque;
 
 	
@@ -171,9 +171,8 @@ public class partida {
 			System.out.println("EL EQUIPO GANADOR ES: "+equipo.get(0).getNombre());
 			System.out.println("-----------------------------------");
 			System.out.println("-----------------------------------");
-			System.out.println("");
-			System.out.println("");
-
+			
+			G++;
 		}
 	}
 
