@@ -1,5 +1,6 @@
+//Coldwar - PARTIDA
 import java.util.ArrayList;
-import java.util.InputMismatchException;
+import java.util.Date;
 import java.util.Scanner;
 
 public class partida {
@@ -7,6 +8,8 @@ public class partida {
 	static ArrayList<planeta> equipo = new ArrayList<planeta>();
 	static int ronda=1,N=0, equiposVivos=0,k=0,G=0;
 	public static int [] vidaAtaque;
+	static String [] ganadores = new String [2];
+	static Date fecha = new Date();
 
 	
 	public void iniciarPartida(){
@@ -165,18 +168,33 @@ public class partida {
 	}
 	
 	public static void mostrarGanador() {
+		
 		if(N==1) {
 			System.out.println("-----------------------------------");
 			System.out.println("-----------------------------------");
 			System.out.println("EL EQUIPO GANADOR ES: "+equipo.get(0).getNombre());
 			System.out.println("-----------------------------------");
 			System.out.println("-----------------------------------");
-			
 			G++;
+			for (int i = 0; i < G; i++) {
+				ganadores[i] = equipo.get(0).getNombre();
+			}
+			
+	
 		}
 	}
+	
+	//Funciona para printar los ganadores que han jugado al iniciar el juego. 
+	public static void apartadoAbierto() {
+		System.out.println("Los Ganadores de las partidas a partir del "+ fecha + " son:");
+
+		for (int i = 0; i < G; i++) {
+			System.out.println("Partida -> "+ (i+1) +" Equipo Ganador: " + ganadores[i]);
+		}
+	}
+		
+}
 
 	
 	
 	
-}
