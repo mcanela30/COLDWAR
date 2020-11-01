@@ -1,3 +1,4 @@
+//Gabriel Gomez Ayuso, Marti Canela
 //Coldwar - MAIN 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -36,7 +37,9 @@ public class main {
 				System.out.println("ERROR. Està introduciendo una letra en vez de un numero. \n");
 				sc.next();
 			}
+			
 			partida partida = new partida();//llamamos a la clase partida.
+			
 			switch(opcion){//menu
 			case 1:
 				partida.iniciarPartida();//llamamos a la funcion inciarPartida() de la clase Partida.
