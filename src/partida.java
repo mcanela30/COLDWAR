@@ -1,45 +1,39 @@
-//Gabriel Gomez Ayuso, Marti Canela
 //Coldwar - PARTIDA
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class partida {
-	static Scanner sc = new Scanner(System.in); //importamos el scaner
-	static ArrayList<planeta> equipo = new ArrayList<planeta>(); //creamos un arraylist de los planetas, para almacenar los datos de los equipos
-	static int ronda=1,N=0, equiposVivos=0,k=0,G=0; //creamos variables globales que nos serviran para hacer bucles y generar contadores
-	public static int [] vidaAtaque; //creamos un array que servira para almacenar la vida que tenian antes de ser atacados para saber si hay que sumar defensa
-	static String [] ganadores = new String [G]; //creamos un aray que servira para almacenar los ganadores de todas las partidas
-	static Date fecha = new Date(); //una variable que guardara la fecha que se jugo y se gano la partida
+	static Scanner sc = new Scanner(System.in);
+	static ArrayList<planeta> equipo = new ArrayList<planeta>();
+	static int ronda=1,N=0, equiposVivos=0,k=0,G=0,P=-1;
+	public static int [] vidaAtaque;
+	static String [] ganadores = new String [50];
+	static Date fecha = new Date();
 
 	
 	public void iniciarPartida(){
+		P++;
+
 		System.out.println("\n------------------------------");
 		System.out.println("Creando equipos...");
-		crearEquipo();//llamamos al metodo para generar equipos
-		while (N!=1) { // N es la variable que indica el numero de equipoc vivos, haremos un bucle mientras los equipos vivos no sean 1
+		crearEquipo();
+		while (N!=1) {
 
-			vidaAtaque = new int [N]; //asignasmos la longitud del array
-			ronda(); //llamamos al metodo ronda para printar la ronda en la que estamos
-			ataque(); //printams el metodo ataque para hacer ataques
-			comprobarequiposvivos(); //comprovamos los equipos vivos
+			vidaAtaque = new int [N];
+			ronda();
+			ataque();
+			comprobarequiposvivos();
 		}
 	}
 
 	public static void crearEquipo(){
 
 		int i;
-		do { //preguntamos cuantos equipos quieren
+		//se pide por teclado el nÃƒÂºmero de coches a leer
+		do {
 			System.out.print("Numeros de equipos? ");
-			N = 2;
-			
-			try {
-				N=sc.nextInt();
-			}catch(InputMismatchException ime) {// en caso que introducza una letra le va ha salir este error gracias a este catch.
-				System.out.println("ERROR. Està introduciendo una letra en vez de un numero. \n");
-				sc.next();
-			}
+			N = sc.nextInt();
 			if(N <3) {
 				System.out.println("Como minimo se tienen que crear 3 equipos.");
 			}
@@ -51,7 +45,7 @@ public class partida {
 
 		for (i = 1; i <= N; i++) {
 
-			//leer datos de cada equipo
+			//leer datos de cada coche
 			System.out.println("Equipo " + i);
 			System.out.print("Nombre: ");
 
@@ -65,89 +59,77 @@ public class partida {
 		System.out.println("-----------");
 		System.out.println("| RONDA "+ronda+" |");
 		System.out.println("-----------");
-		mostrarEquipos();//mostramos los equipos
+		mostrarEquipos();
 		ronda++;
 	}
 
 	public static void mostrarEquipos() {
 		System.out.println("------------------------------");
 		for(int i = 0; i< equipo.size(); i++)
-			System.out.println(equipo.get(i));  //se invoca el metodo toString de la clase planeta                  
+			System.out.println(equipo.get(i));  //se invoca el metodo toString de la clase Coche                  
 		System.out.println("------------------------------");
 	}
 
 	public static void ataque(){
 		//se tiene que poner lo de las vidas para que no superes los 200.
-		int ataque=0,misilAtaque=0, misilDefensa=0,mRonda=0,vida=0; //creamos las variables que serviran para hacer bucles y guardra valroes para despues enviarlos a metodos de la classe planeta
+		int ataque=0,misilAtaque=0, misilDefensa=0,mRonda=0,vida=0;
 		boolean bucleRonda=true;
 
 		for (int w = 0; w < N; w++) {
-			vidaAtaque[w] = equipo.get(w).getVidas(); //hacemos un bucle antes de realizar ataques para guardar la vida de acda uno de los equipos, para despues comparar y decidir si sumar la defensa
+			vidaAtaque[w] = equipo.get(w).getVidas();			
 		}
 
-		for (k = 0; k < N;k++) {		//bucle de los ataques	
-			ataque=0; misilAtaque=0; misilDefensa=0; mRonda=0; bucleRonda=true;vida=0; //ponemos los valores a 0 para evitar fallos
+		for (k = 0; k < N;k++) {			
+			ataque=0; misilAtaque=0; misilDefensa=0; mRonda=0; bucleRonda=true;vida=0;
 			equipo.get(k).setMisilesDefensa(0);
 
-			System.out.println("Turno de ataque del equipo "+(k+1)+": "+equipo.get(k).getNombre()); //imprimimos de quien es turno
+			System.out.println("Turno de ataque del equipo "+(k+1)+": "+equipo.get(k).getNombre());
 			System.out.println("------------------------------");
 
-			equipo.get(k).setMisiles_ronda(50); //seteamos los misiles a 50
+			equipo.get(k).setMisiles_ronda(50);
 
 
 
-			while(bucleRonda==true) {//bucle para decidir si continuar en el bucle o no dependiendo de los valores que asignemos en la variable boolean
-				System.out.println("Misiles disponibles: "+ equipo.get(k).getMisiles_ronda());//imprimimos cuantos misiles quedan
+			while(bucleRonda==true) {
+				System.out.println("Misiles disponibles: "+ equipo.get(k).getMisiles_ronda());
 				System.out.println("¿A quien quieres atacar?");
 
-				for (int j = 0; j < N; j++) {//imprimimos los equipos disponibles
-					if(k!=j) {//esto sierve para imprimir todos los equipos menos el atacante
+				for (int j = 0; j < N; j++) {
+					if(k!=j) {
 						System.out.println((j+1) +". " +equipo.get(j).getNombre());
 					}
 				}
-				ataque=5;
 
 				System.out.println("0. Misiles restantes a defensa.");
-				
-				try {
-					ataque=sc.nextInt();
-				}catch(InputMismatchException ime) {// en caso que introducza una letra le va ha salir este error gracias a este catch.
-					System.out.println("ERROR. Està introduciendo una letra en vez de un numero. \n");
-					sc.next();
-				}
+				ataque=sc.nextInt();
 
-				while(ataque<0 || ataque>N || ataque==(k+1)) {//evitar fallos
+				while(ataque<0 || ataque>N || ataque==(k+1)) {
 					System.out.println("ERROR. Introduce de nuevo a quien desea atacar");
-					try {
-						ataque=sc.nextInt();
-					}catch(InputMismatchException ime) {// en caso que introducza una letra le va ha salir este error gracias a este catch.
-						System.out.println("ERROR. Està introduciendo una letra en vez de un numero. \n");
-						sc.next();
-					}
+					ataque=sc.nextInt();	
 				}
 				if(ataque!=0) {
 					System.out.println("Introduce el numero de misiles con el que quieres atacar");
-					misilAtaque=sc.nextInt();//guardamos quantos misiles ha lanzado
+					misilAtaque=sc.nextInt();
 
 					while(misilAtaque>equipo.get(k).getMisiles_ronda()) {
 						System.out.println("ERROR. No tienes tantos misiles disponibles.\n Introduce el numero de misiles con el que quieres atacar");
 						misilAtaque=sc.nextInt();	
 					}
-					mRonda=equipo.get(k).getMisiles_ronda()-misilAtaque; //calkculamos cuantos misiles qquedan
-					equipo.get(k).setMisiles_ronda(mRonda); //guardamos al usuario los misiles que le quedan
-					vida=equipo.get(ataque-1).getVidas(); //guardamos la vida del usuario
-					equipo.get((ataque-1)).setVidas(misilAtaque,vida); //restamos el ataque
+					mRonda=equipo.get(k).getMisiles_ronda()-misilAtaque;
+					equipo.get(k).setMisiles_ronda(mRonda);
+					vida=equipo.get(ataque-1).getVidas();
+					equipo.get((ataque-1)).setVidas(misilAtaque,vida);
 				}
-				else { //en caso de ser la opcion 0
+				else {
 
-					misilDefensa=equipo.get(k).getMisiles_ronda()/2; //dividimos en dos los misiles que lanzan
-					mRonda=equipo.get(k).getMisiles_ronda()-misilDefensa*2; //multiplicamos por 2 los misiles enviados para calcular el vvalor de los misiles
-					equipo.get(k).setMisiles_ronda(mRonda); //guardamos los valroes de los misiles
-					equipo.get(k).setMisilesDefensa(misilDefensa); //guardamos los misiles de defensa
+					misilDefensa=equipo.get(k).getMisiles_ronda()/2;
+					mRonda=equipo.get(k).getMisiles_ronda()-misilDefensa*2;
+					equipo.get(k).setMisiles_ronda(mRonda);
+					equipo.get(k).setMisilesDefensa(misilDefensa);
 					//					equipo.get((k)).setVidasDefensa(misilDefensa);				
 				}				
 				if(mRonda==0) {
-					bucleRonda=false; //cuanod los misiles sean 0 pasara al siguiente jugador
+					bucleRonda=false;
 				}
 
 			}
@@ -196,11 +178,12 @@ public class partida {
 			System.out.println("-----------------------------------");
 			System.out.println("-----------------------------------");
 			G++;
-			for (int i = 0; i < G; i++) {
-				ganadores[G] = equipo.get(i).getNombre();
-			}
+				ganadores[P] = equipo.get(0).getNombre();
 			
-	
+			
+			for (int l = 0; l < N; l++) {
+				equipo.remove(l);
+			}
 		}
 	}
 	

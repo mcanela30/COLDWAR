@@ -21,7 +21,7 @@ public class planeta {
 
 	public planeta(String nombre, int numero_equipos) {
 		this.nombre = nombre;
-		this.vidas = 200;
+		this.vidas = 25;
 		this.misiles_ronda = 50;
 		this.numero_equipos = numero_equipos;
 	}
