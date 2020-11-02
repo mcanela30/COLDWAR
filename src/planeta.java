@@ -21,7 +21,7 @@ public class planeta {
 
 	public planeta(String nombre, int numero_equipos) {
 		this.nombre = nombre;
-		this.vidas = 25;
+		this.vidas = 200;
 		this.misiles_ronda = 50;
 		this.numero_equipos = numero_equipos;
 	}
@@ -47,7 +47,7 @@ public class planeta {
 		return misiles_ronda;
 	}
 	public void setMisiles_ronda(int misiles_ronda) {
-		this.misiles_ronda = misiles_ronda;
+		this.misiles_ronda = misiles_ronda;//ahora si
 	}
 	public int getNumero_equipos() {
 		return numero_equipos;
@@ -56,10 +56,11 @@ public class planeta {
 		this.numero_equipos = numero_equipos;
 	}
 	
-	public void quitarVida() {
+	public void quitarVida() { //sumamos los misiles de defensa en caso de ser atacado
 		vidas=vidas+misilesDefensa;
 	}
 	
+	//imprimimos equipos y sus vidas
 	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Equipo "+numero_equipos+": "+nombre+" --> "+vidas); 
