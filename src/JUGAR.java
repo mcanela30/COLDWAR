@@ -1,11 +1,12 @@
-//Gabriel Gomez Ayuso, Marti Canela
-//Coldwar - PARTIDA
+package coldwar;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class partida {
+public class JUGAR {
+
 	static Scanner sc = new Scanner(System.in); //importamos el scaner
 	static ArrayList<planeta> equipo = new ArrayList<planeta>(); //creamos un arraylist de los planetas, para almacenar los datos de los equipos
 	static int ronda=1,N=0, equiposVivos=0,k=0,G=0,P=-1; //creamos variables globales que nos serviran para hacer bucles y generar contadores
@@ -54,7 +55,6 @@ public class partida {
 
 
 		for (i = 1; i <= N; i++) {
-
 			//leer datos de cada equipo
 			System.out.println("Equipo " + i);
 			System.out.print("Nombre: ");
@@ -63,6 +63,11 @@ public class partida {
 			equipo.add(new planeta(sc.nextLine(),i));
 			equiposVivos++;
 		}
+		
+		
+		
+		
+		
 	}
 
 	public static void ronda() {

@@ -1,3 +1,4 @@
+package coldwar;
 //Marti Canela, Gabriel Gómez
 public class planeta {
 	
