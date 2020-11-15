@@ -29,59 +29,59 @@ public class Menu {
     }
 
     public Menu() {
-     // Uso del escáner para obtener información del usuario
+     // Uso del escï¿½ner para obtener informaciï¿½n del usuario
         Scanner sc = new Scanner(System.in);
         JUGAR ju = null;
 		int opcion = 5; //la inicializamos a 5 porque de esta forma si pone un caracter que no sea entre el 0 o el 4 le salga otra vex el menu
 		boolean salir = false;
 		while(!salir){
-        	System.out.println("Seleccione una opción:\n");
-            System.out.println("1º JUGAR\n"
-                    + "2º REGLAS DEL JUEGO\n"
-                    + "3º INFORMACIÓN\n"
-                    + "4º APARTADO ABIERTO\n"
-                    + "0º SALIR");
+        	System.out.println("Seleccione una opciï¿½n:\n");
+            System.out.println("1ï¿½ JUGAR\n"
+                    + "2ï¿½ REGLAS DEL JUEGO\n"
+                    + "3ï¿½ INFORMACIï¿½N\n"
+                    + "4ï¿½ APARTADO ABIERTO\n"
+                    + "0ï¿½ SALIR");
 			try {
 				opcion=sc.nextInt();
 			}catch(InputMismatchException ime) {// en caso que introducza una letra le va ha salir este error gracias a este catch.
-				System.out.println("\nERROR. Està introduciendo una letra en vez de un numero.");
+				System.out.println("\nERROR. Estï¿½ introduciendo una letra en vez de un numero.");
 				sc.next();
 			}
             switch (opcion) {
-                case 1: // bloque de código
+                case 1: // bloque de cï¿½digo
                 {
                     ju = new JUGAR();
                     ju.iniciarPartida();
                 }
                 break;
-                case 2: {// bloque de código
+                case 2: {// bloque de cï¿½digo
     				System.out.println("\n------------------------------");
                     REGLAS_DEL_JUEGO rdj = new REGLAS_DEL_JUEGO();
     				System.out.println("------------------------------\n");
                 }
                 break;
-                case 3: // bloque de código
+                case 3: // bloque de cï¿½digo
                 {
     				System.out.println("\n------------------------------");
-                    NFORMACIÓN in = new NFORMACIÓN();
+                    // NFORMACION in = new NFORMACION();
     				System.out.println("------------------------------\n");
                 }
                 break;
-                case 4:// bloque de código
+                case 4:// bloque de cï¿½digo
                 {
     				System.out.println("\n------------------------------");
                    ju.apartadoAbierto();
    				System.out.println("------------------------------\n");
                 }
                 break;
-                case 0: // bloque de código
+                case 0: // bloque de cï¿½digo
                 {
     				System.out.println("\n------------------------------");
                     new SALIR().endGame();
     				System.out.println("------------------------------\n");
                 }
                 break;
-                default:// bloque de código                            	
+                default:// bloque de cï¿½digo                            	
     				System.out.println("Solo numeros entre 0 y 4\n");// en caso que el usuario ponga otro numero que no sea del 0 al 4 entra aqui. 
                
             }
