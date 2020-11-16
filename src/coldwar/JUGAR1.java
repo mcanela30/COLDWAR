@@ -17,7 +17,7 @@ public class JUGAR1 {
 	
 
 	
-	public void iniciarPartida(){
+	public static void iniciarPartida(){
 		P++;
 		System.out.println("\n------------------------------");
 		System.out.println("Creando equipos...");
@@ -58,8 +58,8 @@ public class JUGAR1 {
 			//leer datos de cada equipo
 			System.out.println("Equipo " + i);
 			System.out.print("Nombre: ");
-
-			//se aÃ±ade el objeto al final del array
+			
+			//se a�ade el objeto al final del array
 			equipo.add(new planeta(sc.nextLine(),i));
 		do {
 		System.out.println("Hay distintos tipos de planeta:");
@@ -74,14 +74,14 @@ public class JUGAR1 {
 			i=i-1;
 			sc.next();
 		}
-		if(contTipo <10&&1<contTipo) {
+		if(contTipo >10&&1>contTipo) {
 			System.out.println("Tiene que ser entre 1 y 10.");
 		}
 			
 		} while (contTipo <10&&contTipo>1);
 			
 			equiposVivos++;		
-			
+		
 		}
 		
 		
@@ -296,24 +296,5 @@ public class JUGAR1 {
 			equiposVivos++;
 		}
 		
-		*/
-		
-		
-		
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-		
+		*/	
 }
