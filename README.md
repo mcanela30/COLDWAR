@@ -1,5 +1,5 @@
 # ColdWar
-_Gabriel Gómez, Martí Canela_, Jordi Obis_
+_Gabriel Gómez, Martí Canela_, Jordi Obis
 
 ## Instrucciones de juego 🚀
 
