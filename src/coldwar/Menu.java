@@ -52,6 +52,7 @@ public class Menu {
                 {
                 	
     				JUGAR1 rdj = new JUGAR1();
+//    				JUGAR rdj = new JUGAR();
     				JUGAR1.iniciarPartida();
 //                    ju = new JUGAR();
 //                    ju.iniciarPartida();

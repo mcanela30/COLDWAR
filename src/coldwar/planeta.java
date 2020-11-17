@@ -3,12 +3,13 @@ package coldwar;
 public class planeta {
 	
 	//Creamos las variables
-	private int vidas=200;
+	private int vidas=0;
 	private String nombre=null;
 	private int misiles_ronda=0;
 	private int numero_equipos=0;
 	private boolean ataquedefansa=true;
 	private int misilesDefensa=0;
+	private int tipo=0;
 	
 	
 	//Creamos Getters y Setters para poder coger las variables, al ser private, en los otros ficheros.
@@ -20,11 +21,20 @@ public class planeta {
 		this.misilesDefensa = misilesDefensa;
 	}
 
-	public planeta(String nombre, int numero_equipos) {
+	public planeta(String nombre, int vidas, int misiles_ronda, int numero_equipos, int tipo) {
 		this.nombre = nombre;
-		this.vidas = 200;
-		this.misiles_ronda = 50;
+		this.vidas = vidas;
+		this.misiles_ronda = misiles_ronda;
 		this.numero_equipos = numero_equipos;
+		this.tipo = tipo;
+	}
+	
+	public int getTipo() {
+		return tipo;
+	}
+	
+	public int setTipo() {
+		return tipo;
 	}
 	
 	public int getVidas() {

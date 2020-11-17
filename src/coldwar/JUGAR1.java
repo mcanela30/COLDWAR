@@ -13,7 +13,9 @@ public class JUGAR1 {
 	public static int [] vidaAtaque;//creamos un array que servira para almacenar la vida que tenian antes de ser atacados para saber si hay que sumar defensa
 	static String [] ganadores = new String [50];  //creamos un aray que servira para almacenar los ganadores de todas las partidas
 	static Date fecha = new Date(); //una variable que guardara la fecha que se jugo y se gano la partida
-	static int contTipo=0;
+	static int contTipo=0;//  creamos variables para los equipos.
+	static String nomEquip; //para guardar el nombre del equipo.
+
 	
 
 	
@@ -60,35 +62,56 @@ public class JUGAR1 {
 			System.out.print("Nombre: ");
 			
 			//se añade el objeto al final del array
-			equipo.add(new planeta(sc.nextLine(),i));
-		do {
+//			equipo.add(new planeta(sc.nextLine(), i, contTipo));
+			nomEquip=sc.nextLine();
+			
+
+			contTipo=0;
+		while (	contTipo<1 || contTipo>10){
+		
 		System.out.println("Hay distintos tipos de planeta:");
 		REGLAS_DEL_JUEGO.explicacion_planetas();
-		System.out.println("Que tipo de planeta quieres ser para el equipo "+ equipo.get(k).getNombre()+": ");
-		
+		System.out.println("Que tipo de planeta quieres ser para el equipo "+ nomEquip +": ");
+
 		try {
 			contTipo=sc.nextInt();
+			sc.nextLine(); //limpiar el intro
+
 		
 		}catch(InputMismatchException ime) {// en caso que introducza una letra le va ha salir este error gracias a este catch.
-			System.out.println("ERROR. Està introduciendo una letra en vez de un numero. \n");
+			System.out.println("ERROR. Està introduciendo una caracter no correcto en vez de un numero. \n");
 			i=i-1;
 			sc.next();
 		}
-		if(contTipo >10&&1>contTipo) {
-			System.out.println("Tiene que ser entre 1 y 10.");
-		}
-			
-		} while (contTipo <10&&contTipo>1);
-			
-			equiposVivos++;		
-		
+		if(contTipo > 10 && 1 < contTipo) {
+			System.out.println("ERROR. Tiene que ser entre 1 y 10.");
 		}
 		
-		
-		
-		
-		
+		}
+		TipoPlaneta(nomEquip,contTipo,i); // pasamos a la funcion el nombre del equipo, tipo de planeta y su posicion en l'array. 
+		 
+		}	
 	}
+	
+	
+	public static void TipoPlaneta(String nomEquip, int contTipo, int i) {
+		int  vidas=0, misiles_ronda=0; 
+		if(contTipo==1||contTipo==2||contTipo==3||contTipo==4||contTipo==8||contTipo==9||contTipo==10) {// las mismas vidas.
+			vidas=200;
+			misiles_ronda=100;
+		}else if(contTipo==5) {//planeta gigante
+			vidas=400;
+			misiles_ronda=10;
+		}else if(contTipo==6) {//planta enano
+			vidas=100;
+			misiles_ronda=100;
+		}else{//planeta bomba numero 7
+			vidas=200;
+			misiles_ronda=150;
+		}
+		equipo.add(new planeta(nomEquip, vidas, misiles_ronda, i, contTipo)); //lo ponemos en el arraylist. 
+	}
+	
 
 	public static void ronda() {
 		System.out.println("-----------");
@@ -96,7 +119,7 @@ public class JUGAR1 {
 		System.out.println("-----------");
 		mostrarEquipos();//mostramos los equipos
 		ronda++;
-	}
+	} 
 
 	public static void mostrarEquipos() {
 		System.out.println("------------------------------");

@@ -13,11 +13,12 @@ public class JUGAR {
 	public static int [] vidaAtaque;//creamos un array que servira para almacenar la vida que tenian antes de ser atacados para saber si hay que sumar defensa
 	static String [] ganadores = new String [50];  //creamos un aray que servira para almacenar los ganadores de todas las partidas
 	static Date fecha = new Date(); //una variable que guardara la fecha que se jugo y se gano la partida
+	static int contTipo=0; // contador para elegir el tipo de planeta en la funciona crearEquipo().
 
 	
 
 	
-	public void iniciarPartida(){
+	public static void iniciarPartida(){
 		P++;
 		System.out.println("\n------------------------------");
 		System.out.println("Creando equipos...");
@@ -32,8 +33,6 @@ public class JUGAR {
 	}
 
 	public static void crearEquipo(){
-
-
 		int i;
 		do { //preguntamos cuantos equipos quieren
 			System.out.print("Numeros de equipos? ");
@@ -58,14 +57,35 @@ public class JUGAR {
 			//leer datos de cada equipo
 			System.out.println("Equipo " + i);
 			System.out.print("Nombre: ");
+			
+			//se añade el objeto al final del array
+//			equipo.add(new planeta(sc.nextLine(),i));
 
-			//se aÃƒÂ±ade el objeto al final del array
-			equipo.add(new planeta(sc.nextLine(),i));
-			equiposVivos++;
+			contTipo=0;
+		while (	contTipo<1 || contTipo>10){
+		
+		System.out.println("Hay distintos tipos de planeta:");
+		REGLAS_DEL_JUEGO.explicacion_planetas();
+		System.out.println("Que tipo de planeta quieres ser para el equipo "+ equipo.get((k++)).getNombre()+": ");
+		
+		try {
+			contTipo=sc.nextInt();
+			sc.nextLine(); //limpiar el intro
+
+		
+		}catch(InputMismatchException ime) {// en caso que introducza una letra le va ha salir este error gracias a este catch.
+			System.out.println("ERROR. Està introduciendo una caracter no correcto en vez de un numero. \n");
+			i=i-1;
+			sc.next();
+		}
+		if(contTipo > 10 && 1 < contTipo) {
+			System.out.println("ERROR. Tiene que ser entre 1 y 10.");
 		}
 		
+		}		
+	}
 		
-		
+
 		
 		
 	}
