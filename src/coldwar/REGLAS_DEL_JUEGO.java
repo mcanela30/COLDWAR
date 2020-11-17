@@ -16,7 +16,7 @@ public class REGLAS_DEL_JUEGO {
 	public static void explicacion_planetas() {
 		System.out.println("1- Planeta normal\n" + 
 				"	200 vidas\n" + 
-				"	100 misiles\n" + 
+				"	50 misiles\n" + 
 				"2- Planeta rojo:\n" + 
 				"	Ataca el doble al verde (x2)\n" + 
 				"	Ataca la mitad al azul (/2)\n" + 
@@ -42,7 +42,7 @@ public class REGLAS_DEL_JUEGO {
 				"7- Planeta Bomba\n" + 
 				"	200 vidas\n" + 
 				"	150 misiles\n" + 
-				"	Pierde cada turno 15 vidas, al morir elige hacer 15 de daña a otro planeta\n" + 
+				"	Pierde cada turno 10 vidas, al morir hace 15 de daño a los equipos restantes\n" + 
 				"8- Planeta Namek\n" + 
 				"	200 vidas\n" + 
 				"	100 misiles\n" + 
@@ -50,8 +50,8 @@ public class REGLAS_DEL_JUEGO {
 				"9- Planeta Escudo\n" + 
 				"	200 vidas\n" + 
 				"	100 misiles\n" + 
-				"	La defensa se duplica (x2)\n" + 
 				"	El ataque se divide (/2)\n" + 
+				"	La defensa se duplica (x2)\n" + 
 				"10- Planeta Espada\n" + 
 				"	200 vidas\n" + 
 				"	100 misiles\n" + 

@@ -16,9 +16,9 @@ public class JUGAR1 {
 	static int contTipo=0;//  creamos variables para los equipos.
 	static String nomEquip; //para guardar el nombre del equipo.
 
-	
 
-	
+
+
 	public static void iniciarPartida(){
 		P++;
 		System.out.println("\n------------------------------");
@@ -40,7 +40,7 @@ public class JUGAR1 {
 		do { //preguntamos cuantos equipos quieren
 			System.out.print("Numeros de equipos? ");
 			N = 2;
-			
+
 			try {
 				N=sc.nextInt();
 			}catch(InputMismatchException ime) {// en caso que introducza una letra le va ha salir este error gracias a este catch.
@@ -60,43 +60,44 @@ public class JUGAR1 {
 			//leer datos de cada equipo
 			System.out.println("Equipo " + i);
 			System.out.print("Nombre: ");
-			
-			//se añade el objeto al final del array
-//			equipo.add(new planeta(sc.nextLine(), i, contTipo));
+
+			//			equipo.add(new planeta(sc.nextLine(), i, contTipo));
 			nomEquip=sc.nextLine();
-			
+
 
 			contTipo=0;
-		while (	contTipo<1 || contTipo>10){
-		
-		System.out.println("Hay distintos tipos de planeta:");
-		REGLAS_DEL_JUEGO.explicacion_planetas();
-		System.out.println("Que tipo de planeta quieres ser para el equipo "+ nomEquip +": ");
+			while (	contTipo<1 || contTipo>10){
 
-		try {
-			contTipo=sc.nextInt();
-			sc.nextLine(); //limpiar el intro
+				System.out.println("Hay distintos tipos de planeta:");
+				REGLAS_DEL_JUEGO.explicacion_planetas();
+				System.out.println("Que tipo de planeta quieres ser para el equipo "+ nomEquip +": ");
 
-		
-		}catch(InputMismatchException ime) {// en caso que introducza una letra le va ha salir este error gracias a este catch.
-			System.out.println("ERROR. Està introduciendo una caracter no correcto en vez de un numero. \n");
-			i=i-1;
-			sc.next();
-		}
-		if(contTipo > 10 && 1 < contTipo) {
-			System.out.println("ERROR. Tiene que ser entre 1 y 10.");
-		}
-		
-		}
-		TipoPlaneta(nomEquip,contTipo,i); // pasamos a la funcion el nombre del equipo, tipo de planeta y su posicion en l'array. 
-		 
+				try {
+					contTipo=sc.nextInt();
+					sc.nextLine(); //limpiar el intro
+
+
+				}catch(InputMismatchException ime) {// en caso que introducza una letra le va ha salir este error gracias a este catch.
+					System.out.println("ERROR. Està introduciendo una caracter no correcto en vez de un numero. \n");
+					i=i-1;
+					sc.next();
+				}
+				if(contTipo > 10 && 1 < contTipo) {
+					System.out.println("ERROR. Tiene que ser entre 1 y 10.");
+				}
+
+			}
+
+			TipoPlaneta(nomEquip,contTipo,i); // pasamos a la funcion el nombre del equipo, tipo de planeta y su posicion en l'array. 
+			System.out.println("El equipo: '"+ nomEquip +"' del tipo planeta "+contTipo+" ha sido creado correctamente.");
+
+
 		}	
 	}
-	
-	
+
 	public static void TipoPlaneta(String nomEquip, int contTipo, int i) {
 		int  vidas=0, misiles_ronda=0; 
-		if(contTipo==1||contTipo==2||contTipo==3||contTipo==4||contTipo==8||contTipo==9||contTipo==10) {// las mismas vidas.
+		if(contTipo==2||contTipo==3||contTipo==4||contTipo==8||contTipo==9||contTipo==10) {// las mismas vidas.
 			vidas=200;
 			misiles_ronda=100;
 		}else if(contTipo==5) {//planeta gigante
@@ -105,13 +106,16 @@ public class JUGAR1 {
 		}else if(contTipo==6) {//planta enano
 			vidas=100;
 			misiles_ronda=100;
-		}else{//planeta bomba numero 7
+		}else if(contTipo==7){//planeta bomba numero 7
 			vidas=200;
 			misiles_ronda=150;
+		} else{//planeta normal 
+			vidas=200;
+			misiles_ronda=50;
 		}
 		equipo.add(new planeta(nomEquip, vidas, misiles_ronda, i, contTipo)); //lo ponemos en el arraylist. 
+
 	}
-	
 
 	public static void ronda() {
 		System.out.println("-----------");
@@ -137,16 +141,15 @@ public class JUGAR1 {
 			vidaAtaque[w] = equipo.get(w).getVidas(); //hacemos un bucle antes de realizar ataques para guardar la vida de acda uno de los equipos, para despues comparar y decidir si sumar la defensa
 		}
 
-		for (k = 0; k < N;k++) {		//bucle de los ataques	
+		for (k = 0; k < N;k++) {//bucle de los ataques	
 			ataque=0; misilAtaque=0; misilDefensa=0; mRonda=0; bucleRonda=true;vida=0; //ponemos los valores a 0 para evitar fallos
 			equipo.get(k).setMisilesDefensa(0);
 
 			System.out.println("Turno de ataque del equipo "+(k+1)+": "+equipo.get(k).getNombre()); //imprimimos de quien es turno
 			System.out.println("------------------------------");
 
-			equipo.get(k).setMisiles_ronda(50); //seteamos los misiles a 50
 
-
+			resetmisiles();
 
 			while(bucleRonda==true) {//bucle para decidir si continuar en el bucle o no dependiendo de los valores que asignemos en la variable boolean
 				System.out.println("Misiles disponibles: "+ equipo.get(k).getMisiles_ronda());
@@ -160,7 +163,7 @@ public class JUGAR1 {
 				ataque=5;
 
 				System.out.println("0. Misiles restantes a defensa.");
-				
+
 				try {
 					ataque=sc.nextInt();
 				}catch(InputMismatchException ime) {// en caso que introducza una letra le va ha salir este error gracias a este catch.
@@ -193,14 +196,10 @@ public class JUGAR1 {
 					equipo.get((ataque-1)).setVidas(misilAtaque,vida); //restamos el ataque
 				}
 				else { //en caso de ser la opcion 0
-
-					misilDefensa=equipo.get(k).getMisiles_ronda()/2; //dividimos en dos los misiles que lanzan
-					mRonda=equipo.get(k).getMisiles_ronda()-misilDefensa*2; //multiplicamos por 2 los misiles enviados para calcular el vvalor de los misiles
-					equipo.get(k).setMisiles_ronda(mRonda); //guardamos los valroes de los misiles
-					equipo.get(k).setMisilesDefensa(misilDefensa); //guardamos los misiles de defensa
+					defensaP(misilDefensa, mRonda);
 				}					
 				if(mRonda==0) {
-					bucleRonda=false; //cuanod los misiles sean 0 pasara al siguiente jugador
+					bucleRonda=false; //cuando los misiles sean 0 pasara al siguiente jugador
 				}
 
 			}
@@ -219,13 +218,58 @@ public class JUGAR1 {
 
 	}
 
+	public static void resetmisiles() {
+		if(equipo.get(k).getTipo()==2||equipo.get(k).getTipo()==3||equipo.get(k).getTipo()==4||equipo.get(k).getTipo()==8||equipo.get(k).getTipo()==9||equipo.get(k).getTipo()==10 || equipo.get(k).getTipo()==6) {// las mismas vidas.
+			equipo.get(k).setMisiles_ronda(100);
+		}else if(equipo.get(k).getTipo()==5) {//planeta gigante
+			equipo.get(k).setMisiles_ronda(ronda*10);//para cada ronda que pase se suma +10 en los misiles que es li mismo que multiplicarlo por 10 el num de rondas. 
+		} else if (equipo.get(k).getTipo()==7){//planeta bomba numero 7
+			equipo.get(k).setMisiles_ronda(150);
+		}else {
+			equipo.get(k).setMisiles_ronda(50); //planeta normal 
+		}
+		
+	}
+
+	public static void defensaP(int misilDefensa, int mRonda) {
+
+		//		misilDefensa=equipo.get(k).getMisiles_ronda()/2; //dividimos en dos los misiles que lanzan
+		//		mRonda=equipo.get(k).getMisiles_ronda()-misilDefensa*2; //multiplicamos por 2 los misiles enviados para calcular el valor de los misiles
+		//		equipo.get(k).setMisiles_ronda(mRonda); //guardamos los valores de los misiles
+		//		equipo.get(k).setMisilesDefensa(misilDefensa); //guardamos los misiles de defensa
+
+		if(equipo.get(k).setTipo()==9) {
+			misilDefensa=equipo.get(k).getMisiles_ronda();
+			mRonda=equipo.get(k).getMisiles_ronda()-misilDefensa;
+
+		} else if(equipo.get(k).setTipo()==10) {
+			misilDefensa=equipo.get(k).getMisiles_ronda()/4;
+			mRonda=equipo.get(k).getMisiles_ronda()-misilDefensa*4;
+
+		} else {
+			misilDefensa=equipo.get(k).getMisiles_ronda()/2; //dividimos en dos los misiles que lanzan
+			mRonda=equipo.get(k).getMisiles_ronda()-misilDefensa*2; //multiplicamos por 2 los misiles enviados para calcular el valor de los misiles
+
+		}
+
+		equipo.get(k).setMisiles_ronda(mRonda); //guardamos los valores de los misiles
+		equipo.get(k).setMisilesDefensa(misilDefensa); //guardamos los misiles de defensa			
+
+	}
+
 	public static void comprobarequiposvivos() { //comprobamos equipos vivos
 		for (int i = 0; i < N; i++) { //corremos un bucle de N (numero de equipos
 			int vidas=equipo.get(i).getVidas();
-			if(vidas<=0) { //en caso de tener menos o igual a 0 en vidas, este equipoc es expulsado de la array y se resta unn Equipo del contador
+			if(vidas<=0) { //en caso de tener menos o igual a 0 en vidas, este equipo es expulsado de la array y se resta unn Equipo del contador
 				equipo.remove(i);
 				N--;
-			}	
+				//				for (int j = 0; j < N ; j++) { MIRAR PER PLANETA 7 BOMBA
+				//					equipo.get((i)).setVidas(-10, j);
+				//				}
+			}
+
+
+
 			if(vidas<=0) { //no se porque pero nos arregla un fallo
 				equipo.remove(i);
 				N--;
@@ -233,15 +277,15 @@ public class JUGAR1 {
 		}
 		mostrarGanador(); //mostramos ganador
 	}
-	
+
 	public void finalizarPartida(){
 		System.out.println("==================================");
 		System.out.println("La Partida ha finalizado");
 		System.out.println("==================================");
 	}
-	
+
 	public static void mostrarGanador() {
-		
+
 		if(N==1) {
 			System.out.println("-----------------------------------");
 			System.out.println("-----------------------------------");
@@ -249,15 +293,15 @@ public class JUGAR1 {
 			System.out.println("-----------------------------------");
 			System.out.println("-----------------------------------");
 			G++; //G guarda el numero de ganadores
-				ganadores[P] = equipo.get(0).getNombre(); //guarda g en la array de ganadores
-			
-			
+			ganadores[P] = equipo.get(0).getNombre(); //guarda g en la array de ganadores
+
+
 			for (int l = 0; l < N; l++) {
 				equipo.remove(l);
 			}
 		}
 	}
-	
+
 	//Funciona para printar los ganadores que han jugado al iniciar el juego. 
 	public static void apartadoAbierto() {
 		System.out.println("Los Ganadores de las partidas a partir del "+ fecha + " son:"); //imprime fecha actual
@@ -266,9 +310,9 @@ public class JUGAR1 {
 			System.out.println("Partida -> "+ (i+1) +" Equipo Ganador: " + ganadores[i]); //imprime los ganadores del juego
 		}
 	}
-	
-	
-	
+
+
+
 	/*
 	 * Prova de mirar que no es repeteixin els noms dels equips
 	public static void crearEquipo(){
@@ -278,7 +322,7 @@ public class JUGAR1 {
 		do { //preguntamos cuantos equipos quieren
 			System.out.print("Numeros de equipos? ");
 			N = 2;
-			
+
 			try {
 				N=sc.nextInt();
 			}catch(InputMismatchException ime) {// en caso que introducza una letra le va ha salir este error gracias a este catch.
@@ -299,25 +343,25 @@ public class JUGAR1 {
 			//leer datos de cada equipo
 			System.out.println("Equipo " + i);
 			System.out.print("Nombre: ");
-			
-		
+
+
 			eq=sc.nextLine();
 			for (int c=0;c<equipo.size();c++) {
 			      if(eq==equipo[c]) { ///MIRARRRRRRRRRRRRR
 			    	  System.out.print("El equipo "+equipo.get(k).getNombre()+" ya esta elegido porfavor eliga otro");
 			    	  NomEquip=false;
 			      }
-			     
+
 			    }
-			
-				
+
+
 			}while(NomEquip==true);
-			
+
 			//se aÃƒÂ±ade el objeto al final del array
 			equipo.add(new planeta(eq,i));
-			
+
 			equiposVivos++;
 		}
-		
-		*/	
+
+	 */	
 }
