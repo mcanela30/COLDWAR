@@ -38,13 +38,14 @@ public class JUGAR1 {
 
 		int i;
 		do { //preguntamos cuantos equipos quieren
-			System.out.print("Numeros de equipos? ");
+			System.out.print("Quantos equipos deseas crear? ");
 			N = 2;
 
 			try {
 				N=sc.nextInt();
 			}catch(InputMismatchException ime) {// en caso que introducza una letra le va ha salir este error gracias a este catch.
-				System.out.println("ERROR. Està introduciendo una letra en vez de un numero. \n");
+				System.out.println("ERROR. Està introduciendo un caracter no valido. \n"
+						+ "Recuerda que solo puedes introducir numeros");
 				sc.next();
 			}
 			if(N <3) {
@@ -78,12 +79,13 @@ public class JUGAR1 {
 
 
 				}catch(InputMismatchException ime) {// en caso que introducza una letra le va ha salir este error gracias a este catch.
-					System.out.println("ERROR. Està introduciendo una caracter no correcto en vez de un numero. \n");
+					System.out.println("ERROR. Està introduciendo un caracter no valido. \n"
+							+ "Recuerda que solo puedes introducir numeros");
 					i=i-1;
 					sc.next();
 				}
 				if(contTipo > 10 && 1 < contTipo) {
-					System.out.println("ERROR. Tiene que ser entre 1 y 10.");
+					System.out.println("ERROR. El numero tiene que ser entre 1 y 10.");
 				}
 
 			}
@@ -153,21 +155,23 @@ public class JUGAR1 {
 
 			while(bucleRonda==true) {//bucle para decidir si continuar en el bucle o no dependiendo de los valores que asignemos en la variable boolean
 				System.out.println("Misiles disponibles: "+ equipo.get(k).getMisiles_ronda());
-				System.out.println("¿A quien quieres atacar?");
-
+				System.out.println("¿A que equipo quieres atacar?");
+				REGLAS_DEL_JUEGO.RecuerdaExplicacion_planetas(equipo.get(k).setTipo());
 				for (int j = 0; j < N; j++) {//imprimimos los equipos disponibles
 					if(k!=j) {//esto sierve para imprimir todos los equipos menos el atacante
-						System.out.println((j+1) +". " +equipo.get(j).getNombre());
+						System.out.println("Pulsa: "+(j+1) +" para atacar a " +equipo.get(j).getNombre()+", es un pleneta tipo "+equipo.get(j).setTipo());
+						
 					}
 				}
 				ataque=5;
 
-				System.out.println("0. Misiles restantes a defensa.");
+				System.out.println("0. Todos los misiles restantes van a defensa.");
 
 				try {
 					ataque=sc.nextInt();
 				}catch(InputMismatchException ime) {// en caso que introducza una letra le va ha salir este error gracias a este catch.
-					System.out.println("ERROR. Està introduciendo una letra en vez de un numero. \n");
+					System.out.println("ERROR. Està introduciendo un caracter no valido. \n"
+							+ "Recuerda que solo puedes introducir numeros");
 					sc.next();
 				}
 
@@ -178,7 +182,8 @@ public class JUGAR1 {
 					try {
 						ataque=sc.nextInt();
 					}catch(InputMismatchException ime) {// en caso que introducza una letra le va ha salir este error gracias a este catch.
-						System.out.println("ERROR. Està introduciendo una letra en vez de un numero. \n");
+						System.out.println("ERROR. Està introduciendo un caracter no valido. \n"
+								+ "Recuerda que solo puedes introducir numeros");
 						sc.next();
 					}
 				}
@@ -187,7 +192,9 @@ public class JUGAR1 {
 					misilAtaque=sc.nextInt();//guardamos quantos misiles ha lanzado
 
 					while(misilAtaque>equipo.get(k).getMisiles_ronda()) {
-						System.out.println("ERROR. No tienes tantos misiles disponibles.\n Introduce el numero de misiles con el que quieres atacar");
+						System.out.println("ERROR. No tienes tantos misiles disponibles.\n "
+								+ "Introduce el numero de misiles con el que quieres atacar\n"
+								+ "Tienes "+equipo.get(k).getMisiles_ronda()+" misiles restantes");
 						misilAtaque=sc.nextInt();	
 					}
 					mRonda=equipo.get(k).getMisiles_ronda()-misilAtaque; //calkculamos cuantos misiles qquedan
@@ -222,15 +229,20 @@ public class JUGAR1 {
 		if(equipo.get(k).getTipo()==2||equipo.get(k).getTipo()==3||equipo.get(k).getTipo()==4||equipo.get(k).getTipo()==8||equipo.get(k).getTipo()==9||equipo.get(k).getTipo()==10 || equipo.get(k).getTipo()==6) {// las mismas vidas.
 			equipo.get(k).setMisiles_ronda(100);
 		}else if(equipo.get(k).getTipo()==5) {//planeta gigante
-			equipo.get(k).setMisiles_ronda(ronda*10);//para cada ronda que pase se suma +10 en los misiles que es li mismo que multiplicarlo por 10 el num de rondas. 
+			equipo.get(k).setMisiles_ronda(ronda*10-10);
+			//para cada ronda que pase se suma +10 en los misiles que es li mismo que multiplicarlo por 10 el num de rondas. se le resta 10 ya que despues de printar la ronda se suma 1
 		} else if (equipo.get(k).getTipo()==7){//planeta bomba numero 7
 			equipo.get(k).setMisiles_ronda(150);
 		}else {
-			equipo.get(k).setMisiles_ronda(50); //planeta normal 
+			equipo.get(k).setMisiles_ronda(50); //planeta normal numero 1
 		}
 		
 	}
 
+	public static void ataqueP(int misilDefensa, int mRonda) {
+		
+	}
+	
 	public static void defensaP(int misilDefensa, int mRonda) {
 
 		//		misilDefensa=equipo.get(k).getMisiles_ronda()/2; //dividimos en dos los misiles que lanzan
@@ -238,11 +250,11 @@ public class JUGAR1 {
 		//		equipo.get(k).setMisiles_ronda(mRonda); //guardamos los valores de los misiles
 		//		equipo.get(k).setMisilesDefensa(misilDefensa); //guardamos los misiles de defensa
 
-		if(equipo.get(k).setTipo()==9) {
+		if(equipo.get(k).setTipo()==9) {//el planeta escudo cada misil que use en defensa equivale a un punto por eso no se resta
 			misilDefensa=equipo.get(k).getMisiles_ronda();
 			mRonda=equipo.get(k).getMisiles_ronda()-misilDefensa;
 
-		} else if(equipo.get(k).setTipo()==10) {
+		} else if(equipo.get(k).setTipo()==10) {// el planeta espada por cada punto de defensa tiene que pagar 4 misiles
 			misilDefensa=equipo.get(k).getMisiles_ronda()/4;
 			mRonda=equipo.get(k).getMisiles_ronda()-misilDefensa*4;
 
@@ -251,16 +263,16 @@ public class JUGAR1 {
 			mRonda=equipo.get(k).getMisiles_ronda()-misilDefensa*2; //multiplicamos por 2 los misiles enviados para calcular el valor de los misiles
 
 		}
-
-		equipo.get(k).setMisiles_ronda(mRonda); //guardamos los valores de los misiles
-		equipo.get(k).setMisilesDefensa(misilDefensa); //guardamos los misiles de defensa			
-
+		//esto se repite en todos los casos
+		equipo.get(k).setMisiles_ronda(mRonda); //guardamos los valroes de los misiles
+		equipo.get(k).setMisilesDefensa(misilDefensa); //guardamos los misiles de defensa
 	}
 
 	public static void comprobarequiposvivos() { //comprobamos equipos vivos
 		for (int i = 0; i < N; i++) { //corremos un bucle de N (numero de equipos
 			int vidas=equipo.get(i).getVidas();
 			if(vidas<=0) { //en caso de tener menos o igual a 0 en vidas, este equipo es expulsado de la array y se resta unn Equipo del contador
+				System.out.println("El equipo "+i+" se ha quedado sin vidas");
 				equipo.remove(i);
 				N--;
 				//				for (int j = 0; j < N ; j++) { MIRAR PER PLANETA 7 BOMBA

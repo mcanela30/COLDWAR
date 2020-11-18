@@ -1,0 +1,16 @@
+Nomes es per nosaltres per anar ficant la info
+
+Falta o cambiar:
+	-Jugar1 linia 278 per a que resti a el plantea bomba al morir
+	-Jugar1 linia 228 Ataquep ficar tot lo del atac
+	-Jugar1 linia 242 defensa mira aveure que resti be i que no sumi vides
+	-Jugar1 linia 275 per a que digui quin es eliminat
+
+
+
+Dubtes:
+linea 165 		ataque=5;perque?
+
+
+
+

@@ -44,7 +44,8 @@ public class Menu {
 			try {
 				opcion=sc.nextInt();
 			}catch(InputMismatchException ime) {// en caso que introducza una letra le va ha salir este error gracias a este catch.
-				System.out.println("\nERROR. Está introduciendo una letra en vez de un numero.");
+				System.out.println("ERROR. Està introduciendo un caracter no valido. \n"
+						+ "Recuerda que solo puedes introducir numeros");
 				sc.next();
 			}
             switch (opcion) {
