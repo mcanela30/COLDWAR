@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
+import java.util.Random;
 public class JUGAR1 {
 
 	static Scanner sc = new Scanner(System.in); //importamos el scaner
@@ -21,6 +21,7 @@ public class JUGAR1 {
 
 	public static void iniciarPartida(){
 		P++;
+		limpiarPantalla();
 		System.out.println("\n------------------------------");
 		System.out.println("Creando equipos...");
 		crearEquipo();//llamamos al metodo para generar equipos
@@ -55,7 +56,7 @@ public class JUGAR1 {
 
 		sc.nextLine(); //limpiar el intro
 
-
+		limpiarPantalla();
 
 		for (i = 1; i <= N; i++) {
 			//leer datos de cada equipo
@@ -91,6 +92,7 @@ public class JUGAR1 {
 			}
 
 			TipoPlaneta(nomEquip,contTipo,i); // pasamos a la funcion el nombre del equipo, tipo de planeta y su posicion en l'array. 
+			limpiarPantalla();
 			System.out.println("El equipo: '"+ nomEquip +"' del tipo planeta "+contTipo+" ha sido creado correctamente.");
 
 
@@ -165,13 +167,13 @@ public class JUGAR1 {
 				}
 				ataque=5;
 
-				System.out.println("0. Todos los misiles restantes van a defensa.");
+				System.out.println("Pulsa: 0 para tener todos los misiles restantes van a defensa.");
 
 				try {
 					ataque=sc.nextInt();
 				}catch(InputMismatchException ime) {// en caso que introducza una letra le va ha salir este error gracias a este catch.
 					System.out.println("ERROR. Està introduciendo un caracter no valido. \n"
-							+ "Recuerda que solo puedes introducir numeros");
+									 + "Recuerda que solo puedes introducir numeros");
 					sc.next();
 				}
 
@@ -197,10 +199,11 @@ public class JUGAR1 {
 								+ "Tienes "+equipo.get(k).getMisiles_ronda()+" misiles restantes");
 						misilAtaque=sc.nextInt();	
 					}
-					mRonda=equipo.get(k).getMisiles_ronda()-misilAtaque; //calkculamos cuantos misiles qquedan
+					mRonda=equipo.get(k).getMisiles_ronda()-misilAtaque; //calculamos cuantos misiles quedan
 					equipo.get(k).setMisiles_ronda(mRonda); //guardamos al usuario los misiles que le quedan
 					vida=equipo.get(ataque-1).getVidas(); //guardamos la vida del usuario
-					equipo.get((ataque-1)).setVidas(misilAtaque,vida); //restamos el ataque
+					ataqueP(ataque, misilAtaque, vida);// llamamos la funcions ataqueP() para restar el ataque
+					
 				}
 				else { //en caso de ser la opcion 0
 					defensaP(misilDefensa, mRonda);
@@ -239,7 +242,33 @@ public class JUGAR1 {
 		
 	}
 
-	public static void ataqueP(int misilDefensa, int mRonda) {
+	public static void ataqueP( int ataque, int misilAtaque, int vida) {
+		int ale=3;
+		ataque=ataque-1;
+		if((equipo.get(k).getTipo()==2&& equipo.get(ataque).getTipo()==4)||(equipo.get(k).getTipo()==3&& equipo.get(ataque).getTipo()==2)||(equipo.get(k).getTipo()==4&& equipo.get(ataque).getTipo()==3)||equipo.get(k).getTipo()==10) {
+			//ataque x2
+			misilAtaque=misilAtaque*2;
+			System.out.println("El ataque se multiplica x2");
+			equipo.get((ataque-1)).setVidas(misilAtaque,vida); 
+		} else if((equipo.get(k).getTipo()==2&& equipo.get(ataque).getTipo()==3)||(equipo.get(k).getTipo()==3&& equipo.get(ataque).getTipo()==4)||(equipo.get(k).getTipo()==4&& equipo.get(ataque).getTipo()==2)||equipo.get(k).getTipo()==9) {
+			//ataque %2
+			misilAtaque=misilAtaque/2;
+			System.out.println("El ataque se divide /2");
+			equipo.get((ataque-1)).setVidas(misilAtaque,vida); 
+		} else if(equipo.get(ataque).getTipo()==6) {
+			Random aleatorio = new Random();
+			ale=aleatorio.nextInt(2);
+			 if(ale==0) {
+				 equipo.get((ataque-1)).setVidas(misilAtaque,vida); 		
+			 } else {
+				 System.out.println("El planeta ha esquivado el ataque.");
+			 }
+
+		} else {
+			//ataque normal
+			equipo.get((ataque-1)).setVidas(misilAtaque,vida); 
+		}
+		
 		
 	}
 	
@@ -323,7 +352,11 @@ public class JUGAR1 {
 		}
 	}
 
-
+	public static void limpiarPantalla() {
+		for (int i = 0; i < 70; i++) {
+			System.out.println("");
+		}
+	}
 
 	/*
 	 * Prova de mirar que no es repeteixin els noms dels equips

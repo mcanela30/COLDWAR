@@ -57,11 +57,11 @@ public class REGLAS_DEL_JUEGO {
 				"	100 misiles\n" + 
 				"	El ataque se multiplica (x2)\n" + 
 				"	La defensa se divide (/2)\n" + 
-	"");
+	"");		
 	}
 	
 	public static void RecuerdaExplicacion_planetas(int contTipo) {
-		System.out.println("Requerda que ventajas tiene tu tipo de problema\n" );
+		System.out.println("Requerda que ventajas tiene tu tipo de planeta\n" );
 		if(contTipo==1) { 
 			 explicacion_planeta1();
 		}else if(contTipo==2) {
@@ -88,8 +88,7 @@ public class REGLAS_DEL_JUEGO {
 	//explicacion por separado para mostrar en ataque
 	public static void explicacion_planeta1() {
 		System.out.println("-- Planeta normal --\n" + 
-				"200 vidas\n" + 
-				"50 misiles\n") ;
+				"No tiene ninguna ventaja\n") ;
 	}
 	public static void explicacion_planeta2() {
 		System.out.println("-- Planeta rojo --\n" + 

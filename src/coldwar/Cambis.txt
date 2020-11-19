@@ -1,4 +1,3 @@
-Nomes es per nosaltres per anar ficant la info
 
 Falta o cambiar:
 	-Jugar1 linia 278 per a que resti a el plantea bomba al morir
