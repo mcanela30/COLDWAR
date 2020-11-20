@@ -17,7 +17,7 @@ public class JUGAR1 {
 	static String nomEquip; //para guardar el nombre del equipo.
 
 
-
+//no se guarda
 
 	public static void iniciarPartida(){
 		P++;
